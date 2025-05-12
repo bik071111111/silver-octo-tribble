@@ -1,0 +1,3254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RelaxZone</title>
+	<link rel="icon" href="favicon.ico" type="favicon.ico">
+	<link rel="shortcut icon" href="favicon.ico" type="favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Основные стили и сброс */
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --success-color: #4cc9f0;
+            --warning-color: #f72585;
+            --relax-color: #3a86ff;
+            --nature-color: #2ec4b6;
+            --water-color: #00b4d8;
+            --fire-color: #f95738;
+        }
+        
+        /* Стили для режима слабовидящих */
+        .accessibility-mode {
+            --primary-color: #000000;
+            --secondary-color: #000000;
+            --accent-color: #000000;
+            --light-color: #ffffff;
+            --dark-color: #000000;
+            
+            font-family: Arial, sans-serif !important;
+            font-size: 18px !important;
+            line-height: 1.8 !important;
+            color: #000000 !important;
+            background: #ffffff !important;
+        }
+        
+        .accessibility-mode .navbar,
+        .accessibility-mode .hero,
+        .accessibility-mode .about-section,
+        .accessibility-mode .footer {
+            background: #ffffff !important;
+            color: #000000 !important;
+            border-bottom: 2px solid #000000 !important;
+        }
+        
+        .accessibility-mode .section-title h2,
+        .accessibility-mode h1, 
+        .accessibility-mode h2, 
+        .accessibility-mode h3,
+        .accessibility-mode p,
+        .accessibility-mode .video-info h3,
+        .accessibility-mode .video-info p {
+            color: #000000 !important;
+        }
+        
+        .accessibility-mode .btn,
+        .accessibility-mode .category-btn,
+        .accessibility-mode .game-btn {
+            border: 2px solid #000000 !important;
+            color: #000000 !important;
+            background: #ffffff !important;
+            font-weight: bold !important;
+        }
+        
+        .accessibility-mode .video-card,
+        .accessibility-mode .game-card,
+        .accessibility-mode .comfort-test,
+        .accessibility-mode .modal-content,
+        .accessibility-mode .auth-form,
+        .accessibility-mode .admin-panel {
+            border: 2px solid #000000 !important;
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+        
+        .accessibility-mode .option {
+            border: 2px solid #000000 !important;
+        }
+        
+        .accessibility-mode .nav-links a,
+        .accessibility-mode .logo,
+        .accessibility-mode .accessibility-toggle {
+            color: #000000 !important;
+        }
+        
+        .accessibility-mode .hero {
+            background: #ffffff !important;
+        }
+        
+        .accessibility-mode .footer {
+            background: #ffffff !important;
+            border-top: 2px solid #000000 !important;
+        }
+        
+        .accessibility-mode .social-links a {
+            background: #ffffff !important;
+            border: 2px solid #000000 !important;
+        }
+        
+        /* Контрастные ссылки */
+        .accessibility-mode a {
+            color: #0000FF !important;
+            text-decoration: underline !important;
+        }
+        
+        /* Увеличенные элементы управления */
+        .accessibility-mode input,
+        .accessibility-mode button,
+        .accessibility-mode select,
+        .accessibility-mode textarea {
+            font-size: 18px !important;
+            padding: 10px !important;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        /* Навигационное меню */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a.active {
+            background-color: var(--accent-color);
+        }
+        
+        .accessibility-toggle {
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-left: 2rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid white;
+        }
+        
+        .accessibility-toggle:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Форма авторизации */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .auth-form {
+            background: white;
+            max-width: 500px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .auth-form h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .auth-tab.active {
+            border-bottom-color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .auth-tab:hover {
+            background: rgba(72, 149, 239, 0.1);
+        }
+        
+        .auth-content {
+            display: none;
+        }
+        
+        .auth-content.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-btn:hover {
+            background: var(--primary-color);
+        }
+        
+        .auth-message {
+            margin-top: 1rem;
+            text-align: center;
+            color: var(--warning-color);
+            font-size: 0.9rem;
+        }
+        
+        .close-auth {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close-auth:hover {
+            color: var(--warning-color);
+            transform: rotate(90deg);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-left: 2rem;
+            color: white;
+        }
+        
+        .user-info i {
+            margin-right: 0.5rem;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin-left: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .logout-btn:hover {
+            text-decoration: underline;
+        }
+        
+        /* Админ панель */
+        .admin-panel {
+            background: white;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .admin-panel h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .users-list {
+            margin-top: 2rem;
+        }
+        
+        .users-list h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+        }
+        
+        .user-item:last-child {
+            border-bottom: none;
+        }
+        
+        .user-actions button {
+            background: var(--warning-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .user-actions button:hover {
+            background: #d91a5f;
+        }
+        
+        /* Герой-секция */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1490730141103-6cac27aaab94') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .hero p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(72, 149, 239, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(72, 149, 239, 0.6);
+            background: var(--primary-color);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Секция видео */
+        .section {
+            padding: 5rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .video-categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: var(--primary-color);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-card video {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .video-info {
+            padding: 1.5rem;
+        }
+        
+        .video-info h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .video-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Секция игр */
+        .games-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        }
+        
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .game-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin: 1.5rem 0;
+        }
+        
+        .game-card h3 {
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+            color: var(--dark-color);
+        }
+        
+        .game-card p {
+            color: #666;
+            font-size: 0.9rem;
+            padding: 0 1rem 1.5rem;
+        }
+        
+        /* Раздел "Узнай свой комфорт" */
+        .comfort-section {
+            background: linear-gradient(135deg, #f0f7ff, #d6e4ff);
+        }
+        
+        .comfort-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .comfort-test {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        
+        .question {
+            margin-bottom: 2rem;
+            display: none;
+        }
+        
+        .question.active {
+            display: block;
+        }
+        
+        .question h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .option {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .option:hover {
+            background: #e9ecef;
+        }
+        
+        .option.selected {
+            border-color: var(--accent-color);
+            background: rgba(72, 149, 239, 0.1);
+        }
+        
+        .test-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+        
+        .test-progress {
+            height: 5px;
+            background: #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .result-icon {
+            font-size: 4rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .result-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .result-description {
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .comfort-tips {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .comfort-tips h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .tips-list {
+            list-style-type: none;
+        }
+        
+        .tips-list li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .tips-list li::before {
+            content: '•';
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -3px;
+        }
+        
+        /* Модальное окно для игр */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: white;
+            max-width: 900px;
+            margin: 2rem auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: var(--warning-color);
+            transform: rotate(90deg);
+        }
+        
+        .game-modal-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .game-modal-header h2 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .game-modal-body {
+            padding: 2rem;
+        }
+        
+        /* Стили для игры "Звезда" */
+        .star-game-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(to bottom, #000428, #004e92);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .star {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: url('https://cdn-icons-png.flaticon.com/512/1828/1828884.png') no-repeat center center;
+            background-size: contain;
+            animation: fall linear infinite;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .star:hover {
+            transform: scale(1.2);
+        }
+        
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+        
+        .game-score {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            z-index: 100;
+        }
+        
+        .game-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+        
+        .game-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .game-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        .game-btn.stop {
+            background: var(--warning-color);
+        }
+        
+        /* Стили для игры "Три в ряд" */
+        .match3-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match3-board {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 10px;
+            margin: 2rem auto;
+            max-width: 500px;
+        }
+        
+        .match3-cell {
+            aspect-ratio: 1/1;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .match3-cell::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.3));
+            border-radius: 8px;
+        }
+        
+        .match3-cell:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .match3-cell.selected {
+            box-shadow: 0 0 0 3px var(--accent-color);
+        }
+        
+        .match3-cell.locked {
+            background: #ddd;
+            cursor: not-allowed;
+        }
+        
+        .match3-cell.locked::after {
+            content: '🔒';
+            position: absolute;
+            font-size: 1.2rem;
+        }
+        
+        .match3-gem {
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
+            background: var(--primary-color);
+            box-shadow: inset 0 -3px 5px rgba(0, 0, 0, 0.2), inset 0 2px 0 rgba(255, 255, 255, 0.3);
+        }
+        
+        .match3-info {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            min-width: 120px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-box h3 {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-box p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        /* Игра "Пазл" */
+        .puzzle-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .puzzle-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin: 1rem auto;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .puzzle-piece {
+            aspect-ratio: 1/1;
+            background: #f0f0f0;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            background-size: 400% 400%;
+        }
+        
+        .puzzle-piece.empty {
+            background: transparent;
+            border: 2px dashed #ccc;
+            cursor: default;
+        }
+        
+        .puzzle-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        /* Игра "Мемори" */
+        .memory-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .memory-board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 1rem auto;
+        }
+        
+        .memory-card {
+            aspect-ratio: 1/1;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+        
+        .memory-card .front, .memory-card .back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .memory-card .back {
+            background: white;
+            color: var(--primary-color);
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .memory-card.matched {
+            visibility: hidden;
+            opacity: 0;
+            transform: scale(0);
+        }
+        
+        .memory-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 2rem;
+        }
+        
+        /* Игра "Кликер" */
+        .clicker-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .clicker-button {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(67, 97, 238, 0.3);
+            transition: all 0.1s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .clicker-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 10px rgba(67, 97, 238, 0.3);
+        }
+        
+        .clicker-button::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .clicker-button:active::after {
+            opacity: 1;
+        }
+        
+        .clicker-upgrades {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+        
+        .upgrade-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .upgrade-btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .upgrade-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .upgrade-info {
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+        }
+        
+        /* Секция "О нас" */
+        .about-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+        
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            height: 400px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .about-content p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .about-features {
+            margin-top: 2rem;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .feature-text h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-text p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+        
+        /* Подвал */
+        .footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 4rem 2rem 2rem;
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-logo i {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+        
+        .footer-about p {
+            margin-bottom: 1.5rem;
+            color: #aaa;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-links h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-color);
+        }
+        
+        .footer-links ul {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            color: #aaa;
+        }
+        
+        .footer-contact i {
+            margin-right: 0.8rem;
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .about-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                height: 300px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .games-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .hero {
+                padding-top: 60px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 1rem;
+            }
+            
+            .match3-board {
+                grid-template-columns: repeat(6, 40px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Навигационное меню -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-spa"></i>
+            <span>RelaxZone</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Главная</a></li>
+            <li><a href="#videos">Видео</a></li>
+            <li><a href="#games">Игры</a></li>
+            <li><a href="#comfort">Комфорт</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#contact">Контакты</a></li>
+            <li><button class="accessibility-toggle">Для слабовидящих</button></li>
+            <li id="auth-li">
+                <a href="#" id="auth-link">Войти</a>
+                <div class="user-info" id="user-info" style="display: none;">
+                    <i class="fas fa-user"></i>
+                    <p id="username-display"></p>
+                    <button class="logout-btn" id="logout-btn">(Выйти)</button>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Модальное окно авторизации -->
+    <div class="auth-modal" id="auth-modal">
+        <div class="auth-form">
+            <span class="close-auth">&times;</span>
+            <h2>Добро пожаловать</h2>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" data-tab="login">Вход</div>
+                <div class="auth-tab" data-tab="register">Регистрация</div>
+            </div>
+            
+            <div class="auth-content active" id="login-content">
+                <div class="form-group">
+                    <label for="login-username">Логин</label>
+                    <input type="text" id="login-username" placeholder="Введите ваш логин">
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Пароль</label>
+                    <input type="password" id="login-password" placeholder="Введите ваш пароль">
+                </div>
+                <button class="auth-btn" id="login-btn">Войти</button>
+                <div class="auth-message" id="login-message"></div>
+            </div>
+            
+            <div class="auth-content" id="register-content">
+                <div class="form-group">
+                    <label for="register-username">Логин</label>
+                    <input type="text" id="register-username" placeholder="Придумайте логин">
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Пароль</label>
+                    <input type="password" id="register-password" placeholder="Придумайте пароль">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Подтвердите пароль</label>
+                    <input type="password" id="confirm-password" placeholder="Повторите пароль">
+                </div>
+                <button class="auth-btn" id="register-btn">Зарегистрироваться</button>
+                <div class="auth-message" id="register-message"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Админ панель (скрыта по умолчанию) -->
+    <div id="admin-panel-container" style="display: none;">
+        <div class="section">
+            <div class="admin-panel">
+                <h2>Панель администратора</h2>
+                
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <h3>Всего пользователей</h3>
+                        <p id="total-users">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Активных сегодня</h3>
+                        <p id="active-users">0</p>
+                    </div>
+                </div>
+                
+                <div class="users-list">
+                    <h3>Список пользователей</h3>
+                    <div id="users-list-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Герой-секция -->
+    <section class="hero" id="home">
+        <h1>Пространство для релаксации и отдыха</h1>
+        <p>Откройте для себя мир спокойствия и гармонии с нашей коллекцией успокаивающих видео и расслабляющих игр</p>
+        <a href="#videos" class="btn">Начать путешествие</a>
+    </section>
+
+    <!-- Секция видео -->
+    <section class="section" id="videos">
+        <div class="section-title">
+            <h2>Успокаивающие видео</h2>
+        </div>
+        <div class="video-categories">
+            <button class="category-btn active" data-category="all">Все</button>
+            <button class="category-btn" data-category="nature">Природа</button>
+            <button class="category-btn" data-category="water">Вода</button>
+            <button class="category-btn" data-category="fire">Огонь</button>
+            <button class="category-btn" data-category="space">Космос</button>
+        </div>
+        <div class="video-grid">
+            <!-- Видео о природе -->
+            <div class="video-card" data-category="nature">
+                <video controls>
+                    <source src="Облака.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Бегущие облака</h3>
+                </div>
+            </div>
+			
+            <div class="video-card" data-category="nature">
+                <video controls>
+                    <source src="Маки.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Оранжевые маки</h3>
+                </div>
+            </div>
+			
+			<div class="video-card" data-category="nature">
+                <video controls>
+                    <source src="Береза.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Мокрая берёзка</h3>
+                </div>
+            </div>
+            
+			<div class="video-card" data-category="nature">
+                <video controls>
+                    <source src="Хвоя.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Хвойные ветви</h3>
+                </div>
+            </div>
+			
+			<div class="video-card" data-category="nature">
+                <video controls>
+                    <source src="Пионы.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Яркие пионы</h3>
+                </div>
+            </div>
+			
+			<div class="video-card" data-category="water">
+                <video controls>
+                    <source src="вода.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Чистая вода и камни</h3>
+                </div>
+            </div>
+			
+			<div class="video-card" data-category="water">
+                <video controls>
+                    <source src="Водопад.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Красивый водопад</h3>
+                </div>
+            </div>
+			
+			<div class="video-card" data-category="water">
+                <video controls>
+                    <source src="Океан.mp4" type="video/mp4">
+                </video>
+                <div class="video-info">
+                    <h3>Красота океана</h3>
+                </div>
+            </div>
+			
+        </div>
+    </section>
+
+    <!-- Секция игр -->
+    <section class="section games-section" id="games">
+        <div class="section-title">
+            <h2>Расслабляющие игры</h2>
+        </div>
+        <div class="games-container">
+            <div class="game-card" data-game="star">
+                <div class="game-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Ловец звезд</h3>
+                <p>Ловите падающие звезды для релаксации</p>
+            </div>
+            <div class="game-card" data-game="match3">
+                <div class="game-icon">
+                    <i class="fas fa-gem"></i>
+                </div>
+                <h3>Три в ряд</h3>
+                <p>Классическая игра для спокойного времяпрепровождения</p>
+            </div>
+            <div class="game-card" data-game="puzzle">
+                <div class="game-icon">
+                    <i class="fas fa-puzzle-piece"></i>
+                </div>
+                <h3>Собери пазл</h3>
+                <p>Расслабляющая игра-головоломка с красивыми изображениями</p>
+            </div>
+            <div class="game-card" data-game="memory">
+                <div class="game-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>Тренировка памяти</h3>
+                <p>Найдите пары одинаковых карточек</p>
+            </div>
+            <div class="game-card" data-game="clicker">
+                <div class="game-icon">
+                    <i class="fas fa-mouse-pointer"></i>
+                </div>
+                <h3>Антистресс кликер</h3>
+                <p>Просто кликайте для снятия напряжения</p>
+            </div>
+        </div>
+    </section>
+
+        <section class="section comfort-section" id="comfort">
+        <div class="section-title">
+            <h2>Узнай свой комфорт</h2>
+        </div>
+        <div class="comfort-container">
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">
+                Пройдите небольшой тест, чтобы узнать, какие виды релаксации подходят вам лучше всего, 
+                и получите персонализированные рекомендации для максимального комфорта.
+            </p>
+            
+            <div class="comfort-test">
+                <div class="test-progress">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+                
+                <div class="question active" id="question1">
+                    <h3>Как вы обычно справляетесь со стрессом?</h3>
+                    <div class="options">
+                        <div class="option" data-value="nature">Ищу уединения на природе</div>
+                        <div class="option" data-value="water">Принимаю ванну или слушаю звуки воды</div>
+                        <div class="option" data-value="fire">Смотрю на огонь или свечи</div>
+                        <div class="option" data-value="active">Занимаюсь физической активностью</div>
+                        <div class="option" data-value="passiv">Занимаюсь уборкой в доме</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="question2">
+                    <h3>Какая обстановка помогает вам расслабиться?</h3>
+                    <div class="options">
+                        <div class="option" data-value="nature">Тихий лес или парк</div>
+                        <div class="option" data-value="water">Берег моря или реки</div>
+                        <div class="option" data-value="fire">Уютное место с камином или свечами</div>
+                        <div class="option" data-value="active">Динамичная, но контролируемая обстановка</div>
+                        <div class="option" data-value="passiv">Уютный домашний вечер с близкими</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="question3">
+                    <h3>Какие звуки вас успокаивают?</h3>
+                    <div class="options">
+                        <div class="option" data-value="nature">Пение птиц, шелест листьев</div>
+                        <div class="option" data-value="water">Шум дождя, прибоя, ручья</div>
+                        <div class="option" data-value="fire">Треск костра, потрескивание дров</div>
+                        <div class="option" data-value="active">Ритмичная, но спокойная музыка</div>
+                        <div class="option" data-value="passiv">Полная тишина, тихие мелодии</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="question4">
+                    <h3>Как вы предпочитаете проводить свободное время?</h3>
+                    <div class="options">
+                        <div class="option" data-value="nature">Прогулки в парках и лесах</div>
+                        <div class="option" data-value="water">Плавание, посещение бассейна или спа</div>
+                        <div class="option" data-value="fire">Чтение книги при мягком освещении</div>
+                        <div class="option" data-value="active">Занятия йогой или медитацией</div>
+                        <div class="option" data-value="passiv">Лежать на уютном диване и смотреть фильмы</div>
+                    </div>
+                </div>
+                
+                <div class="question" id="question5">
+                    <h3>Какое время суток вам наиболее комфортно?</h3>
+                    <div class="options">
+                        <div class="option" data-value="nature">Утро, когда природа просыпается</div>
+                        <div class="option" data-value="water">День, когда можно освежиться</div>
+                        <div class="option" data-value="fire">Вечер, когда можно устроиться у огня</div>
+                        <div class="option" data-value="active">Ночь, когда все спокойно</div>
+                    </div>
+                </div>
+                
+                <div class="result-container" id="result-container">
+                    <div class="result-icon">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <h2 class="result-title" id="result-title">Ваш тип комфорта</h2>
+                    <p class="result-description" id="result-description"></p>
+                    
+                    <div class="comfort-tips">
+                        <h3>Рекомендации для вас:</h3>
+                        <ul class="tips-list" id="tips-list">
+                            <!-- Сюда будут добавлены рекомендации -->
+                        </ul>
+                    </div>
+                    
+                    <button class="btn" id="restart-test" style="margin-top: 2rem;">Пройти тест снова</button>
+                </div>
+                
+                <div class="test-controls">
+                    <button class="btn" id="prev-btn" disabled>Назад</button>
+                    <button class="btn" id="next-btn">Далее</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Модальное окно для игр -->
+    <div class="modal" id="game-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="game-modal-header">
+                <h2 id="game-modal-title">Название игры</h2>
+                <p id="game-modal-description">Описание игры</p>
+            </div>
+            <div class="game-modal-body" id="game-modal-content">
+                <!-- Содержимое игры будет загружено сюда -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Секция "О нас" -->
+    <section class="section about-section" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://i.vuzopedia.ru/storage/app/uploads/public/643/7e8/838/6437e88380e37896227316.jpg" alt="Наша команда">
+            </div>
+            <div class="about-content">
+                <h2>О проекте RelaxZone</h2>
+                <p>RelaxZone создан для тех, кто ценит моменты спокойствия и гармонии в нашей быстротечной жизни. Наша миссия - помочь вам найти внутренний баланс через успокаивающий контент и расслабляющие игры.</p>
+                
+                <div class="about-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Создано с любовью</h3>
+                            <p>Каждый элемент тщательно отобран для вашего релакса</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Природная гармония</h3>
+                            <p>Используем силу природы для вашего спокойствия</p>
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Развитие через отдых</h3>
+                            <p>Наши игры сочетают релаксацию и когнитивное развитие</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-spa"></i>
+                    <span>RelaxZone</span>
+                </div>
+                <p>Ваш оазис спокойствия в цифровом мире. Мы создаем пространство для релаксации и гармонии.</p>
+                <div class="social-links">
+                    <a href="https://vk.com/i.babenko_1"><i class="fab fa-vk"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Быстрые ссылки</h3>
+                <ul>
+                    <li><a href="#home">Главная</a></li>
+                    <li><a href="#videos">Видео</a></li>
+                    <li><a href="#games">Игры</a></li>
+                    <li><a href="#comfort">Комфорт</a></li>
+                    <li><a href="#about">О нас</a></li>
+                    <li><a href="#contact">Контакты</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Контакты</h3>
+                <p><i class="fas fa-map-marker-alt"></i> г. Белово</p>
+                <p><i class="fas fa-phone"></i> +7 (900) 800-70-60</p>
+                <p><i class="fas fa-envelope"></i> Babenko@gmail.com</p>
+                <a href="https://vk.com/i.babenko_1"><i class="fab fa-vk"> Вконтакте </i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; Дипломная работа 2025</p>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Функционал переключения режима для слабовидящих
+            const accessibilityToggle = document.querySelector('.accessibility-toggle');
+            accessibilityToggle.addEventListener('click', function() {
+                document.body.classList.toggle('accessibility-mode');
+                
+                // Сохраняем состояние в localStorage
+                if (document.body.classList.contains('accessibility-mode')) {
+                    localStorage.setItem('accessibilityMode', 'enabled');
+                    accessibilityToggle.textContent = 'Обычный режим';
+                } else {
+                    localStorage.setItem('accessibilityMode', 'disabled');
+                    accessibilityToggle.textContent = 'Для слабовидящих';
+                }
+            });
+            
+            // Проверяем сохраненные настройки при загрузке
+            if (localStorage.getItem('accessibilityMode') === 'enabled') {
+                document.body.classList.add('accessibility-mode');
+                accessibilityToggle.textContent = 'Обычный режим';
+            }
+
+            // Функционал фильтрации видео
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            const videoCards = document.querySelectorAll('.video-card');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const category = button.dataset.category;
+                    
+                    // Обновляем активную кнопку
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    // Фильтруем видео
+                    videoCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Функционал модального окна для игр
+            const modal = document.getElementById('game-modal');
+            const gameCards = document.querySelectorAll('.game-card');
+            const closeModal = document.querySelector('.close-modal');
+            
+            gameCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const gameType = card.dataset.game;
+                    loadGame(gameType);
+                    modal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                // Останавливаем все игры при закрытии модального окна
+                if (window.starGameInterval) clearInterval(window.starGameInterval);
+                if (window.autoClickers) {
+                    window.autoClickers.forEach(interval => clearInterval(interval));
+                    window.autoClickers = [];
+                }
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    if (window.starGameInterval) clearInterval(window.starGameInterval);
+                    if (window.autoClickers) {
+                        window.autoClickers.forEach(interval => clearInterval(interval));
+                        window.autoClickers = [];
+                    }
+                }
+            });
+            
+            // Функция загрузки игры в модальное окно
+            function loadGame(gameType) {
+                const title = document.getElementById('game-modal-title');
+                const description = document.getElementById('game-modal-description');
+                const content = document.getElementById('game-modal-content');
+                
+                switch(gameType) {
+                    case 'star':
+                        title.textContent = 'Ловец звезд';
+                        description.textContent = 'Ловите падающие звезды для релаксации';
+                        content.innerHTML = `
+                            <div class="star-game-container">
+                                <div class="game-score">Счёт: 0</div>
+                                <div class="game-controls">
+                                    <button class="game-btn" id="start-game">Начать</button>
+                                    <button class="game-btn stop" id="stop-game">Стоп</button>
+                                </div>
+                            </div>
+                        `;
+                        initStarGame();
+                        break;
+                        
+                    case 'match3':
+                        title.textContent = 'Три в ряд';
+                        description.textContent = 'Классическая игра для спокойного времяпрепровождения';
+                        content.innerHTML = `
+                            <div class="match3-container">
+                                <p>Соберите три или более одинаковых элемента в ряд, чтобы заработать очки.</p>
+                                <div class="match3-board" id="match3-board"></div>
+                                <div class="match3-info">
+                                    <div class="info-box">
+                                        <h3>Уровень</h3>
+                                        <p id="current-level">1</p>
+                                    </div>
+                                    <div class="info-box">
+                                        <h3>Ходы</h3>
+                                        <p id="moves-left">10</p>
+                                    </div>
+                                    <div class="info-box">
+                                        <h3>Цель</h3>
+                                        <p id="target-score">1000</p>
+                                    </div>
+                                    <div class="info-box">
+                                        <h3>Счёт</h3>
+                                        <p id="current-score">0</p>
+                                    </div>
+                                </div>
+                                <div class="match3-controls">
+                                    <button class="game-btn" id="restart-level">Начать заново</button>
+                                </div>
+                            </div>
+                        `;
+                        initMatch3Game();
+                        break;
+                        
+                    case 'puzzle':
+                        title.textContent = 'Собери пазл';
+                        description.textContent = 'Расслабляющая игра-головоломка с красивыми изображениями';
+                        content.innerHTML = `
+                            <div class="puzzle-container">
+                                <p>Перемещайте кусочки пазла, чтобы собрать целое изображение.</p>
+                                <div class="puzzle-board" id="puzzle-board"></div>
+                                <div class="puzzle-controls">
+                                    <button class="game-btn" id="shuffle-puzzle">Перемешать</button>
+                                    <button class="game-btn" id="solve-puzzle">Показать решение</button>
+                                </div>
+                            </div>
+                        `;
+                        initPuzzleGame();
+                        break;
+                        
+                    case 'memory':
+                        title.textContent = 'Тренировка памяти';
+                        description.textContent = 'Найдите пары одинаковых карточек';
+                        content.innerHTML = `
+                            <div class="memory-container">
+                                <p>Найдите все пары карточек за минимальное количество ходов.</p>
+                                <div class="memory-board" id="memory-board"></div>
+                                <div class="memory-stats">
+                                    <div class="info-box">
+                                        <h3>Ходы</h3>
+                                        <p id="memory-moves">0</p>
+                                    </div>
+                                    <div class="info-box">
+                                        <h3>Найдено пар</h3>
+                                        <p id="memory-pairs">0/8</p>
+                                    </div>
+                                </div>
+                                <div class="match3-controls">
+                                    <button class="game-btn" id="restart-memory">Начать заново</button>
+                                </div>
+                            </div>
+                        `;
+                        initMemoryGame();
+                        break;
+                        
+                    case 'clicker':
+                        title.textContent = 'Антистресс кликер';
+                        description.textContent = 'Просто кликайте для снятия напряжения';
+                        content.innerHTML = `
+                            <div class="clicker-container">
+                                <p>Кликайте на синию кнопку, чтобы зарабатывать очки и покупать улучшения.</p>
+                                <div class="clicker-button" id="clicker-button">
+                                    Клик!
+                                </div>
+                                <div class="info-box" style="margin: 0 auto;">
+                                    <h3>Очков</h3>
+                                    <p id="clicker-score">0</p>
+                                </div>
+                                <h3 style="margin-top: 2rem;">Улучшения</h3>
+                                <div class="clicker-upgrades" id="clicker-upgrades">
+                                    <!-- Улучшения будут добавлены через JS -->
+                                </div>
+                            </div>
+                        `;
+                        initClickerGame();
+                        break;
+                }
+            }
+            
+            // Игра "Ловец звезд"
+            function initStarGame() {
+                const gameContainer = document.querySelector('.star-game-container');
+                const scoreDisplay = document.querySelector('.game-score');
+                const startButton = document.getElementById('start-game');
+                const stopButton = document.getElementById('stop-game');
+                
+                let score = 0;
+                let gameActive = false;
+                
+                function createStar() {
+                    if (!gameActive) return;
+                    
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    
+                    // Позиционируем звезду случайным образом в верхней части экрана
+                    star.style.left = `${Math.random() * (gameContainer.offsetWidth - 40)}px`;
+                    star.style.top = '-40px';
+                    
+                    // Разная скорость падения
+                    const duration = Math.random() * 3 + 2;
+                    star.style.animation = `fall ${duration}s linear forwards`;
+                    
+                    // Обработчик клика
+                    star.addEventListener('click', () => {
+                        score++;
+                        scoreDisplay.textContent = `Счёт: ${score}`;
+                        
+                        // Анимация исчезновения
+                        star.style.transform = 'scale(1.5)';
+                        star.style.opacity = '0';
+                        setTimeout(() => star.remove(), 300);
+                    });
+                    
+                    gameContainer.appendChild(star);
+                    
+                    // Удаляем звезду после падения
+                    setTimeout(() => {
+                        if (star.parentNode) star.remove();
+                    }, duration * 1000);
+                }
+                
+                startButton.addEventListener('click', () => {
+                    gameActive = true;
+                    score = 0;
+                    scoreDisplay.textContent = `Счёт: ${score}`;
+                    window.starGameInterval = setInterval(createStar, 800);
+                    startButton.disabled = true;
+                    stopButton.disabled = false;
+                });
+                
+                stopButton.addEventListener('click', () => {
+                    gameActive = false;
+                    clearInterval(window.starGameInterval);
+                    startButton.disabled = false;
+                    stopButton.disabled = true;
+                    
+                    // Удаляем все звезды
+                    document.querySelectorAll('.star').forEach(star => star.remove());
+                });
+            }
+            
+            // Игра "Три в ряд"
+            function initMatch3Game() {
+                const board = document.getElementById('match3-board');
+                const currentLevelDisplay = document.getElementById('current-level');
+                const movesLeftDisplay = document.getElementById('moves-left');
+                const targetScoreDisplay = document.getElementById('target-score');
+                const currentScoreDisplay = document.getElementById('current-score');
+                const restartButton = document.getElementById('restart-level');
+                
+                const levels = [
+                    { targetScore: 1000, moves: 15, lockedCells: [] },
+                    { targetScore: 1500, moves: 18, lockedCells: [] },
+                    { targetScore: 2000, moves: 20, lockedCells: [10, 15, 20] },
+                    { targetScore: 2500, moves: 22, lockedCells: [9, 14, 19] },
+                    { targetScore: 3000, moves: 25, lockedCells: [8, 13, 18, 23] }
+                ];
+                
+                let currentLevel = 0;
+                let movesLeft = levels[currentLevel].moves;
+                let currentScore = 0;
+                let selectedCell = null;
+                
+                const colors = ['#4361ee', '#3f37c9', '#4895ef', '#4cc9f0', '#f72585'];
+                
+                function createBoard() {
+                    board.innerHTML = '';
+                    
+                    for (let i = 0; i < 6 * 6; i++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('match3-cell');
+                        cell.dataset.index = i;
+                        
+                        if (levels[currentLevel].lockedCells.includes(i)) {
+                            cell.classList.add('locked');
+                        } else {
+                            cell.style.backgroundColor = getRandomColorWithoutMatches(i);
+                            cell.addEventListener('click', handleCellClick);
+                            
+                            // Добавляем "драгоценный камень" внутрь ячейки
+                            const gem = document.createElement('div');
+                            gem.classList.add('match3-gem');
+                            gem.style.backgroundColor = cell.style.backgroundColor;
+                            cell.appendChild(gem);
+                        }
+                        
+                        board.appendChild(cell);
+                    }
+                    
+                    // Обновляем информацию об уровне
+                    currentLevelDisplay.textContent = currentLevel + 1;
+                    movesLeft = levels[currentLevel].moves;
+                    movesLeftDisplay.textContent = movesLeft;
+                    targetScoreDisplay.textContent = levels[currentLevel].targetScore;
+                    currentScore = 0;
+                    currentScoreDisplay.textContent = currentScore;
+                }
+                
+                function getRandomColorWithoutMatches(index) {
+                    let color;
+                    const cells = Array.from(board.children);
+                    
+                    do {
+                        color = colors[Math.floor(Math.random() * colors.length)];
+                    } while (hasInitialMatches(index, color, cells));
+                    
+                    return color;
+                }
+                
+                function hasInitialMatches(index, color, cells) {
+                    const row = Math.floor(index / 6);
+                    const col = index % 6;
+                    
+                    // Проверка по горизонтали
+                    if (col >= 2) {
+                        const left1 = cells[index - 1].style.backgroundColor;
+                        const left2 = cells[index - 2].style.backgroundColor;
+                        if (left1 === color && left2 === color) return true;
+                    }
+                    
+                    // Проверка по вертикали
+                    if (row >= 2) {
+                        const top1 = cells[index - 6].style.backgroundColor;
+                        const top2 = cells[index - 12].style.backgroundColor;
+                        if (top1 === color && top2 === color) return true;
+                    }
+                    
+                    return false;
+                }
+                
+                function handleCellClick(event) {
+                    const cell = event.currentTarget;
+                    
+                    if (selectedCell === null) {
+                        // Выбираем первую ячейку
+                        selectedCell = cell;
+                        cell.classList.add('selected');
+                    } else if (selectedCell === cell) {
+                        // Отменяем выбор
+                        selectedCell.classList.remove('selected');
+                        selectedCell = null;
+                    } else if (isAdjacent(selectedCell, cell)) {
+                        // Меняем ячейки местами
+                        swapCells(selectedCell, cell);
+                        
+                        // Проверяем совпадения
+                        setTimeout(() => {
+                            const matches = checkMatches();
+                            
+                            if (matches.length === 0) {
+                                // Если нет совпадений, возвращаем обратно
+                                swapCells(selectedCell, cell);
+                            } else {
+                                // Уменьшаем количество ходов
+                                movesLeft--;
+                                movesLeftDisplay.textContent = movesLeft;
+                                
+                                // Проверяем конец игры
+                                if (movesLeft === 0 && currentScore < levels[currentLevel].targetScore) {
+                                    setTimeout(() => {
+                                        alert('Ходы закончились! Попробуйте еще раз.');
+                                        restartLevel();
+                                    }, 500);
+                                }
+                            }
+                            
+                            selectedCell.classList.remove('selected');
+                            selectedCell = null;
+                        }, 300);
+                    } else {
+                        // Выбираем другую ячейку
+                        selectedCell.classList.remove('selected');
+                        selectedCell = cell;
+                        cell.classList.add('selected');
+                    }
+                }
+                
+                function isAdjacent(cell1, cell2) {
+                    const index1 = parseInt(cell1.dataset.index);
+                    const index2 = parseInt(cell2.dataset.index);
+                    return Math.abs(index1 - index2) === 1 || Math.abs(index1 - index2) === 6;
+                }
+                
+                function swapCells(cell1, cell2) {
+                    // Меняем цвета
+                    const color1 = cell1.style.backgroundColor;
+                    const color2 = cell2.style.backgroundColor;
+                    
+                    cell1.style.backgroundColor = color2;
+                    cell2.style.backgroundColor = color1;
+                    
+                    // Меняем цвета драгоценных камней
+                    cell1.children[0].style.backgroundColor = color2;
+                    cell2.children[0].style.backgroundColor = color1;
+                }
+                
+                function checkMatches() {
+                    const cells = Array.from(board.children);
+                    let matches = new Set();
+                    
+                    // Проверка по горизонтали
+                    for (let row = 0; row < 6; row++) {
+                        for (let col = 0; col < 4; col++) {
+                            const index = row * 6 + col;
+                            if (cells[index].classList.contains('locked')) continue;
+                            
+                            const color = cells[index].style.backgroundColor;
+                            if (color === cells[index + 1].style.backgroundColor && 
+                                color === cells[index + 2].style.backgroundColor) {
+                                matches.add(index);
+                                matches.add(index + 1);
+                                matches.add(index + 2);
+                                
+                                // Проверяем более длинные последовательности
+                                let next = index + 3;
+                                while (next < row * 6 + 6 && cells[next].style.backgroundColor === color) {
+                                    matches.add(next);
+                                    next++;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Проверка по вертикали
+                    for (let col = 0; col < 6; col++) {
+                        for (let row = 0; row < 4; row++) {
+                            const index = row * 6 + col;
+                            if (cells[index].classList.contains('locked')) continue;
+                            
+                            const color = cells[index].style.backgroundColor;
+                            if (color === cells[index + 6].style.backgroundColor && 
+                                color === cells[index + 12].style.backgroundColor) {
+                                matches.add(index);
+                                matches.add(index + 6);
+                                matches.add(index + 12);
+                                
+                                // Проверяем более длинные последовательности
+                                let next = index + 18;
+                                while (next < 36 && cells[next].style.backgroundColor === color) {
+                                    matches.add(next);
+                                    next += 6;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Обработка совпадений
+                    if (matches.size > 0) {
+                        const matchesArray = Array.from(matches);
+                        
+                        // Анимация исчезновения
+                        matchesArray.forEach(index => {
+                            const cell = cells[index];
+                            cell.style.transform = 'scale(1.1)';
+                            cell.style.opacity = '0.5';
+                            setTimeout(() => {
+                                cell.style.backgroundColor = '';
+                                cell.children[0].style.backgroundColor = '';
+                                cell.style.transform = 'scale(1)';
+                                cell.style.opacity = '1';
+                            }, 300);
+                        });
+                        
+                        // Добавляем очки
+                        currentScore += matchesArray.length * 50;
+                        currentScoreDisplay.textContent = currentScore;
+                        
+                        // Проверяем завершение уровня
+                        if (currentScore >= levels[currentLevel].targetScore) {
+                            setTimeout(() => {
+                                if (currentLevel < levels.length - 1) {
+                                    currentLevel++;
+                                    alert(`Уровень ${currentLevel} пройден! Переходим на уровень ${currentLevel + 1}`);
+                                    createBoard();
+                                } else {
+                                    alert('Поздравляем! Вы прошли все уровни!');
+                                    currentLevel = 0;
+                                    createBoard();
+                                }
+                            }, 500);
+                        }
+                        
+                        // Заполняем пустые ячейки
+                        setTimeout(refillBoard, 500);
+                    }
+                    
+                    return matches;
+                }
+                
+                function refillBoard() {
+                    const cells = Array.from(board.children);
+                    
+                    // Сдвигаем камни вниз
+                    for (let col = 0; col < 6; col++) {
+                        for (let row = 5; row >= 0; row--) {
+                            const index = row * 6 + col;
+                            if (cells[index].style.backgroundColor === '' && !cells[index].classList.contains('locked')) {
+                                // Ищем первый непустой камень выше
+                                let emptyIndex = index;
+                                let above = index - 6;
+                                while (above >= 0 && cells[above].style.backgroundColor === '') {
+                                    above -= 6;
+                                }
+                                
+                                if (above >= 0 && !cells[above].classList.contains('locked')) {
+                                    // Перемещаем камень вниз
+                                    const color = cells[above].style.backgroundColor;
+                                    cells[index].style.backgroundColor = color;
+                                    cells[index].children[0].style.backgroundColor = color;
+                                    cells[above].style.backgroundColor = '';
+                                    cells[above].children[0].style.backgroundColor = '';
+                                } else {
+                                    // Создаем новый камень
+                                    const color = getRandomColorWithoutMatches(index);
+                                    cells[index].style.backgroundColor = color;
+                                    cells[index].children[0].style.backgroundColor = color;
+                                }
+                            }
+                        }
+                    }
+                    
+                    // Проверяем новые совпадения после заполнения
+                    setTimeout(() => {
+                        const newMatches = checkMatches();
+                        if (newMatches.size > 0) {
+                            // Если есть новые совпадения, не уменьшаем количество ходов
+                            movesLeft++;
+                            movesLeftDisplay.textContent = movesLeft;
+                        }
+                    }, 300);
+                }
+                
+                function restartLevel() {
+                    createBoard();
+                }
+                
+                restartButton.addEventListener('click', restartLevel);
+                
+                // Инициализируем доску
+                createBoard();
+            }
+            
+            // Игра "Пазл"
+            function initPuzzleGame() {
+                const board = document.getElementById('puzzle-board');
+                const shuffleButton = document.getElementById('shuffle-puzzle');
+                const solveButton = document.getElementById('solve-puzzle');
+                
+                const pieces = [
+                    '1', '2', '3', '4',
+                    '5', '6', '7', '8',
+                    '9', '10', '11', '12',
+                    '13', '14', '15', ''
+                ];
+                
+                let emptyIndex = 15;
+                let gamePieces = [...pieces];
+                
+                function createBoard() {
+                    board.innerHTML = '';
+                    
+                    gamePieces.forEach((piece, index) => {
+                        const pieceElement = document.createElement('div');
+                        pieceElement.classList.add('puzzle-piece');
+                        
+                        if (piece === '') {
+                            pieceElement.classList.add('empty');
+                        } else {
+                            pieceElement.style.backgroundImage = 'url("https://images.unsplash.com/photo-1506744038136-46273834b3fb")';
+                            pieceElement.style.backgroundPosition = getBackgroundPosition(piece);
+                            pieceElement.addEventListener('click', () => movePiece(index));
+                        }
+                        
+                        board.appendChild(pieceElement);
+                    });
+                }
+                
+                function getBackgroundPosition(piece) {
+                    const num = parseInt(piece);
+                    const row = Math.floor((num - 1) / 4);
+                    const col = (num - 1) % 4;
+                    return `${-col * 25}% ${-row * 25}%`;
+                }
+                
+                function movePiece(index) {
+                    // Проверяем, можно ли переместить кусочек
+                    if (isAdjacentPuzzle(index, emptyIndex)) {
+                        // Меняем местами
+                        [gamePieces[index], gamePieces[emptyIndex]] = [gamePieces[emptyIndex], gamePieces[index]];
+                        emptyIndex = index;
+                        createBoard();
+                        
+                        // Проверяем решение
+                        if (isSolved()) {
+                            setTimeout(() => {
+                                alert('Поздравляем! Вы собрали пазл!');
+                            }, 300);
+                        }
+                    }
+                }
+                
+                function isAdjacentPuzzle(index1, index2) {
+                    const row1 = Math.floor(index1 / 4);
+                    const col1 = index1 % 4;
+                    const row2 = Math.floor(index2 / 4);
+                    const col2 = index2 % 4;
+                    
+                    return (Math.abs(row1 - row2) === 1 && col1 === col2) || 
+                           (Math.abs(col1 - col2) === 1 && row1 === row2);
+                }
+                
+                function isSolved() {
+                    for (let i = 0; i < pieces.length - 1; i++) {
+                        if (gamePieces[i] !== pieces[i]) return false;
+                    }
+                    return true;
+                }
+                
+                function shufflePieces() {
+                    // Простой алгоритм перемешивания
+                    for (let i = 0; i < 1000; i++) {
+                        const adjacent = [];
+                        const row = Math.floor(emptyIndex / 4);
+                        const col = emptyIndex % 4;
+                        
+                        if (row > 0) adjacent.push(emptyIndex - 4);
+                        if (row < 3) adjacent.push(emptyIndex + 4);
+                        if (col > 0) adjacent.push(emptyIndex - 1);
+                        if (col < 3) adjacent.push(emptyIndex + 1);
+                        
+                        const randomIndex = adjacent[Math.floor(Math.random() * adjacent.length)];
+                        [gamePieces[emptyIndex], gamePieces[randomIndex]] = [gamePieces[randomIndex], gamePieces[emptyIndex]];
+                        emptyIndex = randomIndex;
+                    }
+                    
+                    createBoard();
+                }
+                
+                function solvePuzzle() {
+                    gamePieces = [...pieces];
+                    emptyIndex = 15;
+                    createBoard();
+                }
+                
+                shuffleButton.addEventListener('click', shufflePieces);
+                solveButton.addEventListener('click', solvePuzzle);
+                
+                // Начальное перемешивание
+                shufflePieces();
+            }
+            
+            // Игра "Мемори"
+            function initMemoryGame() {
+                const board = document.getElementById('memory-board');
+                const restartButton = document.getElementById('restart-memory');
+                const movesDisplay = document.getElementById('memory-moves');
+                const pairsDisplay = document.getElementById('memory-pairs');
+                
+                const symbols = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼'];
+                let cards = [...symbols, ...symbols];
+                let flippedCards = [];
+                let matchedPairs = 0;
+                let moves = 0;
+                let canFlip = true;
+                
+                function createBoard() {
+                    board.innerHTML = '';
+                    flippedCards = [];
+                    matchedPairs = 0;
+                    moves = 0;
+                    movesDisplay.textContent = moves;
+                    pairsDisplay.textContent = `${matchedPairs}/${symbols.length}`;
+                    canFlip = true;
+                    
+                    // Перемешиваем карты
+                    cards = shuffleArray([...symbols, ...symbols]);
+                    
+                    // Создаем карточки
+                    cards.forEach((symbol, index) => {
+                        const card = document.createElement('div');
+                        card.classList.add('memory-card');
+                        card.dataset.index = index;
+                        card.dataset.symbol = symbol;
+                        
+                        const front = document.createElement('div');
+                        front.classList.add('front');
+                        front.textContent = '?';
+                        
+                        const back = document.createElement('div');
+                        back.classList.add('back');
+                        back.textContent = symbol;
+                        
+                        card.appendChild(front);
+                        card.appendChild(back);
+                        card.addEventListener('click', flipCard);
+                        
+                        board.appendChild(card);
+                    });
+                }
+                
+                function shuffleArray(array) {
+                    for (let i = array.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [array[i], array[j]] = [array[j], array[i]];
+                    }
+                    return array;
+                }
+                
+                function flipCard() {
+                    if (!canFlip || this.classList.contains('flipped') || this.classList.contains('matched')) return;
+                    
+                    this.classList.add('flipped');
+                    flippedCards.push(this);
+                    
+                    if (flippedCards.length === 2) {
+                        moves++;
+                        movesDisplay.textContent = moves;
+                        canFlip = false;
+                        
+                        // Проверяем совпадение
+                        if (flippedCards[0].dataset.symbol === flippedCards[1].dataset.symbol) {
+                            // Совпадение найдено
+                            setTimeout(() => {
+                                flippedCards.forEach(card => {
+                                    card.classList.add('matched');
+                                    card.classList.remove('flipped');
+                                });
+                                
+                                flippedCards = [];
+                                canFlip = true;
+                                matchedPairs++;
+                                pairsDisplay.textContent = `${matchedPairs}/${symbols.length}`;
+                                
+                                // Проверяем завершение игры
+                                if (matchedPairs === symbols.length) {
+                                    setTimeout(() => {
+                                        alert(`Поздравляем! Вы нашли все пары за ${moves} ходов!`);
+                                    }, 500);
+                                }
+                            }, 500);
+                        } else {
+                            // Не совпадают
+                            setTimeout(() => {
+                                flippedCards.forEach(card => {
+                                    card.classList.remove('flipped');
+                                });
+                                
+                                flippedCards = [];
+                                canFlip = true;
+                            }, 1000);
+                        }
+                    }
+                }
+                
+                restartButton.addEventListener('click', createBoard);
+                
+                // Инициализируем игру
+                createBoard();
+            }
+            
+            // Игра "Кликер" - оптимизированная с сохранением прогресса
+            function initClickerGame() {
+                const clickerButton = document.getElementById('clicker-button');
+                const scoreDisplay = document.getElementById('clicker-score');
+                const upgradesContainer = document.getElementById('clicker-upgrades');
+                
+                // Инициализация состояния игры
+                let gameState = {
+                    score: 0,
+                    clickValue: 1,
+                    upgrades: [
+                        { id: 1, name: 'Улучшенный клик', cost: 50, value: 1, owned: 0 },
+                        { id: 2, name: 'Автокликер', cost: 200, value: 0.5, owned: 0 },
+                        { id: 3, name: 'Мега клик', cost: 500, value: 5, owned: 0 },
+                        { id: 4, name: 'Супер автокликер', cost: 2000, value: 2, owned: 0 },
+                        { id: 5, name: 'Ультимативный клик', cost: 5000, value: 10, owned: 0 }
+                    ],
+                    autoClickers: []
+                };
+                
+                // Загрузка сохраненной игры
+                function loadGame() {
+                    const savedGame = localStorage.getItem('clickerGame');
+                    if (savedGame) {
+                        const parsed = JSON.parse(savedGame);
+                        
+                        // Восстанавливаем основные параметры
+                        gameState.score = parsed.score;
+                        gameState.clickValue = parsed.clickValue;
+                        
+                        // Восстанавливаем улучшения
+                        gameState.upgrades = parsed.upgrades;
+                        
+                        // Восстанавливаем автокликеры
+                        gameState.upgrades.forEach(upgrade => {
+                            if (upgrade.value <= 0 && upgrade.owned > 0) {
+                                for (let i = 0; i < upgrade.owned; i++) {
+                                    const interval = setInterval(() => {
+                                        gameState.score += Math.abs(upgrade.value);
+                                        updateGame();
+                                    }, 1000);
+                                    gameState.autoClickers.push(interval);
+                                }
+                            }
+                        });
+                        
+                        updateGame();
+                    }
+                }
+                
+                // Сохранение игры
+                function saveGame() {
+                    localStorage.setItem('clickerGame', JSON.stringify({
+                        score: gameState.score,
+                        clickValue: gameState.clickValue,
+                        upgrades: gameState.upgrades
+                    }));
+                }
+                
+                // Обновление интерфейса
+                function updateGame() {
+                    scoreDisplay.textContent = Math.floor(gameState.score);
+                    renderUpgrades();
+                    saveGame();
+                }
+                
+                // Отрисовка улучшений
+                function renderUpgrades() {
+                    upgradesContainer.innerHTML = '';
+                    
+                    gameState.upgrades.forEach(upgrade => {
+                        const upgradeElement = document.createElement('button');
+                        upgradeElement.classList.add('upgrade-btn');
+                        upgradeElement.innerHTML = `
+                            <strong>${upgrade.name}</strong><br>
+                            +${upgrade.value} за клик<br>
+                            Цена: ${Math.floor(upgrade.cost)}<br>
+                            Куплено: ${upgrade.owned}
+                        `;
+                        
+                        if (gameState.score >= upgrade.cost) {
+                            upgradeElement.addEventListener('click', () => buyUpgrade(upgrade.id));
+                        } else {
+                            upgradeElement.disabled = true;
+                        }
+                        
+                        upgradesContainer.appendChild(upgradeElement);
+                    });
+                }
+                
+                // Покупка улучшения
+                function buyUpgrade(id) {
+                    const upgrade = gameState.upgrades.find(u => u.id === id);
+                    
+                    if (gameState.score >= upgrade.cost) {
+                        gameState.score -= upgrade.cost;
+                        upgrade.owned++;
+                        upgrade.cost = Math.floor(upgrade.cost * 1.5);
+                        
+                        if (upgrade.value > 0) {
+                            // Улучшение клика
+                            gameState.clickValue += upgrade.value;
+                        } else {
+                            // Автокликер
+                            const interval = setInterval(() => {
+                                gameState.score += Math.abs(upgrade.value);
+                                updateGame();
+                            }, 1000);
+                            gameState.autoClickers.push(interval);
+                        }
+                        
+                        updateGame();
+                    }
+                }
+                
+                // Обработчик клика
+                clickerButton.addEventListener('click', () => {
+                    gameState.score += gameState.clickValue;
+                    
+                    // Анимация клика
+                    clickerButton.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        clickerButton.style.transform = 'scale(1)';
+                    }, 100);
+                    
+                    updateGame();
+                });
+                
+                // Очистка автокликеров при закрытии модального окна
+                window.addEventListener('beforeunload', () => {
+                    gameState.autoClickers.forEach(interval => clearInterval(interval));
+                });
+                
+                // Инициализация игры
+                loadGame();
+                renderUpgrades();
+            }
+            
+            // Инициализация теста "Узнай свой комфорт"
+            function initComfortTest() {
+                const questions = document.querySelectorAll('.question');
+                const nextBtn = document.getElementById('next-btn');
+                const prevBtn = document.getElementById('prev-btn');
+                const progressBar = document.getElementById('progress-bar');
+                const restartBtn = document.getElementById('restart-test');
+                const resultContainer = document.getElementById('result-container');
+                const resultTitle = document.getElementById('result-title');
+                const resultDescription = document.getElementById('result-description');
+                const tipsList = document.getElementById('tips-list');
+                
+                let currentQuestion = 0;
+                let answers = [];
+                const results = {
+                    nature: {
+                        title: "Природный комфорт",
+                        description: "Вам больше всего подходят виды релаксации, связанные с природой. Вы находите покой в естественной среде, среди деревьев, цветов и животных.",
+                        tips: [
+                            "Чаще гуляйте в парках и лесах",
+                            "Создайте зеленый уголок дома с растениями",
+                            "Используйте звуки природы для медитации",
+                            "Попробуйте ароматерапию с натуральными маслами",
+                            "Занимайтесь садоводством или цветоводством"
+                        ]
+                    },
+                    water: {
+                        title: "Водный комфорт",
+                        description: "Вода - ваш источник спокойствия. Звуки дождя, журчание ручья или шум океана помогают вам расслабиться и восстановить силы.",
+                        tips: [
+                            "Принимайте расслабляющие ванны с морской солью",
+                            "Используйте звуки воды для релаксации",
+                            "Посещайте бассейн или спа-салоны",
+                            "Установите небольшой фонтан дома или в офисе",
+                            "Попробуйте водные виды йоги или плавание"
+                        ]
+                    },
+                    fire: {
+                        title: "Теплый комфорт",
+                        description: "Вы находите уют и покой в теплой, уютной атмосфере. Мерцание огня, мягкий свет и тепло помогают вам расслабиться.",
+                        tips: [
+                            "Создайте уютный уголок с мягким освещением",
+                            "Используйте ароматические свечи (с осторожностью)",
+                            "Попробуйте камин или видео с горящим огнем",
+                            "Пейте теплые напитки перед сном",
+                            "Окружите себя мягкими текстурами и теплыми цветами"
+                        ]
+                    },
+                    active: {
+                        title: "Активный комфорт",
+                        description: "Вам нужно движение для расслабления. Контролируемая физическая активность помогает вам снять стресс и почувствовать себя лучше.",
+                        tips: [
+                            "Попробуйте йогу или тай-чи",
+                            "Занимайтесь дыхательными упражнениями",
+                            "Используйте динамическую медитацию",
+                            "Попробуйте растяжку или легкие упражнения",
+                            "Совмещайте движение с релаксацией (например, прогулки)"
+                        ]
+                    }
+                };
+                
+                // Показать текущий вопрос
+                function showQuestion(index) {
+                    questions.forEach((question, i) => {
+                        question.classList.toggle('active', i === index);
+                    });
+                    
+                    // Обновить прогресс
+                    progressBar.style.width = `${(index / questions.length) * 100}%`;
+                    
+                    // Обновить кнопки
+                    prevBtn.disabled = index === 0;
+                    nextBtn.textContent = index === questions.length - 1 ? 'Завершить' : 'Далее';
+                }
+                
+                // Обработчик выбора ответа
+                questions.forEach(question => {
+                    const options = question.querySelectorAll('.option');
+                    options.forEach(option => {
+                        option.addEventListener('click', () => {
+                            options.forEach(opt => opt.classList.remove('selected'));
+                            option.classList.add('selected');
+                        });
+                    });
+                });
+                
+                // Обработчик кнопки "Далее"
+                nextBtn.addEventListener('click', () => {
+                    const currentOptions = questions[currentQuestion].querySelectorAll('.option');
+                    let selectedOption = null;
+                    
+                    currentOptions.forEach(option => {
+                        if (option.classList.contains('selected')) {
+                            selectedOption = option;
+                        }
+                    });
+                    
+                    if (!selectedOption) {
+                        alert('Пожалуйста, выберите ответ');
+                        return;
+                    }
+                    
+                    // Сохраняем ответ
+                    answers[currentQuestion] = selectedOption.dataset.value;
+                    
+                    if (currentQuestion < questions.length - 1) {
+                        // Переход к следующему вопросу
+                        currentQuestion++;
+                        showQuestion(currentQuestion);
+                    } else {
+                        // Завершение теста
+                        finishTest();
+                    }
+                });
+                
+                // Обработчик кнопки "Назад"
+                prevBtn.addEventListener('click', () => {
+                    if (currentQuestion > 0) {
+                        currentQuestion--;
+                        showQuestion(currentQuestion);
+                    }
+                });
+                
+                // Завершение теста
+                function finishTest() {
+                    // Анализируем ответы
+                    const answerCounts = {
+                        nature: 0,
+                        water: 0,
+                        fire: 0,
+                        active: 0
+                    };
+                    
+                    answers.forEach(answer => {
+                        answerCounts[answer]++;
+                    });
+                    
+                    // Определяем преобладающий тип
+                    let maxType = 'nature';
+                    let maxCount = 0;
+                    
+                    for (const type in answerCounts) {
+                        if (answerCounts[type] > maxCount) {
+                            maxCount = answerCounts[type];
+                            maxType = type;
+                        }
+                    }
+                    
+                    // Показываем результат
+                    const result = results[maxType];
+                    resultTitle.textContent = result.title;
+                    resultDescription.textContent = result.description;
+                    
+                    // Добавляем рекомендации
+                    tipsList.innerHTML = '';
+                    result.tips.forEach(tip => {
+                        const li = document.createElement('li');
+                        li.textContent = tip;
+                        tipsList.appendChild(li);
+                    });
+                    
+                    // Показываем контейнер с результатом
+                    document.querySelectorAll('.question').forEach(q => q.style.display = 'none');
+                    document.querySelector('.test-controls').style.display = 'none';
+                    resultContainer.style.display = 'block';
+                }
+                
+                // Обработчик кнопки "Пройти тест снова"
+                restartBtn.addEventListener('click', () => {
+                    currentQuestion = 0;
+                    answers = [];
+                    
+                    // Сбрасываем выбор
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Показываем первый вопрос
+                    showQuestion(0);
+                    document.querySelectorAll('.question').forEach(q => q.style.display = 'block');
+                    document.querySelector('.test-controls').style.display = 'flex';
+                    resultContainer.style.display = 'none';
+                });
+                
+                // Инициализация теста
+                showQuestion(0);
+            }
+            
+            // Инициализация теста при загрузке страницы
+            initComfortTest();
+            
+            // Функционал авторизации/регистрации
+            const authModal = document.getElementById('auth-modal');
+            const authLink = document.getElementById('auth-link');
+            const closeAuth = document.querySelector('.close-auth');
+            const authTabs = document.querySelectorAll('.auth-tab');
+            const authContents = document.querySelectorAll('.auth-content');
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const loginMessage = document.getElementById('login-message');
+            const registerMessage = document.getElementById('register-message');
+            const userInfo = document.getElementById('user-info');
+            const usernameDisplay = document.getElementById('username-display');
+            const logoutBtn = document.getElementById('logout-btn');
+            const adminPanelContainer = document.getElementById('admin-panel-container');
+            
+            // Админские учетные данные
+            const ADMIN_CREDENTIALS = {
+                username: 'Admin0711',
+                password: 'Babenko2004'
+            };
+            
+            // Проверяем, есть ли сохраненные пользователи
+            if (!localStorage.getItem('users')) {
+                localStorage.setItem('users', JSON.stringify([]));
+            }
+            
+            // Проверяем, авторизован ли пользователь
+            if (localStorage.getItem('currentUser')) {
+                const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+                showUserInfo(currentUser.username);
+                
+                if (currentUser.username === ADMIN_CREDENTIALS.username) {
+                    showAdminPanel();
+                }
+            }
+            
+            // Переключение между вкладками входа и регистрации
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.dataset.tab;
+                    
+                    authTabs.forEach(t => t.classList.remove('active'));
+                    authContents.forEach(c => c.classList.remove('active'));
+                    
+                    tab.classList.add('active');
+                    document.getElementById(`${tabName}-content`).classList.add('active');
+                    
+                    // Очищаем сообщения
+                    loginMessage.textContent = '';
+                    registerMessage.textContent = '';
+                });
+            });
+            
+            // Открытие модального окна авторизации
+            authLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                authModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Закрытие модального окна авторизации
+            closeAuth.addEventListener('click', () => {
+                authModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === authModal) {
+                    authModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Обработчик входа
+            loginBtn.addEventListener('click', () => {
+                const username = document.getElementById('login-username').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+                
+                if (!username || !password) {
+                    loginMessage.textContent = 'Пожалуйста, заполните все поля';
+                    return;
+                }
+                
+                // Проверка админских учетных данных
+                if (username === ADMIN_CREDENTIALS.username && password === ADMIN_CREDENTIALS.password) {
+                    const adminUser = {
+                        username: ADMIN_CREDENTIALS.username,
+                        isAdmin: true,
+                        lastLogin: new Date().toISOString()
+                    };
+                    
+                    localStorage.setItem('currentUser', JSON.stringify(adminUser));
+                    showUserInfo(adminUser.username);
+                    authModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    showAdminPanel();
+                    return;
+                }
+                
+                // Проверка обычных пользователей
+                const users = JSON.parse(localStorage.getItem('users'));
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    // Обновляем время последнего входа
+                    user.lastLogin = new Date().toISOString();
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    localStorage.setItem('currentUser', JSON.stringify({
+                        username: user.username,
+                        isAdmin: false,
+                        lastLogin: user.lastLogin
+                    }));
+                    
+                    showUserInfo(user.username);
+                    authModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    loginMessage.textContent = '';
+                } else {
+                    loginMessage.textContent = 'Неверный логин или пароль';
+                }
+            });
+            
+            // Обработчик регистрации
+            registerBtn.addEventListener('click', () => {
+                const username = document.getElementById('register-username').value.trim();
+                const password = document.getElementById('register-password').value.trim();
+                const confirmPassword = document.getElementById('confirm-password').value.trim();
+                
+                if (!username || !password || !confirmPassword) {
+                    registerMessage.textContent = 'Пожалуйста, заполните все поля';
+                    return;
+                }
+                
+                if (password !== confirmPassword) {
+                    registerMessage.textContent = 'Пароли не совпадают';
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    registerMessage.textContent = 'Пароль должен содержать не менее 6 символов';
+                    return;
+                }
+                
+                const users = JSON.parse(localStorage.getItem('users'));
+                
+                // Проверяем, существует ли уже пользователь с таким именем
+                if (users.some(u => u.username === username)) {
+                    registerMessage.textContent = 'Пользователь с таким именем уже существует';
+                    return;
+                }
+                
+                // Добавляем нового пользователя
+                const newUser = {
+                    username,
+                    password,
+                    createdAt: new Date().toISOString(),
+                    lastLogin: new Date().toISOString(),
+                    gameData: {}
+                };
+                
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                // Автоматически входим под новым пользователем
+                localStorage.setItem('currentUser', JSON.stringify({
+                    username: newUser.username,
+                    isAdmin: false,
+                    lastLogin: newUser.lastLogin
+                }));
+                
+                showUserInfo(newUser.username);
+                authModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+                registerMessage.textContent = '';
+            });
+            
+            // Выход из системы
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('currentUser');
+                hideUserInfo();
+                hideAdminPanel();
+            });
+            
+            // Показать информацию о пользователе
+            function showUserInfo(username) {
+                authLink.style.display = 'none';
+                userInfo.style.display = 'flex';
+                usernameDisplay.textContent = username;
+            }
+            
+            // Скрыть информацию о пользователе
+            function hideUserInfo() {
+                authLink.style.display = 'block';
+                userInfo.style.display = 'none';
+            }
+            
+            // Показать админ панель
+            function showAdminPanel() {
+                adminPanelContainer.style.display = 'block';
+                loadAdminData();
+            }
+            
+            // Скрыть админ панель
+            function hideAdminPanel() {
+                adminPanelContainer.style.display = 'none';
+            }
+            
+            // Загрузка данных для админ панели
+            function loadAdminData() {
+                const users = JSON.parse(localStorage.getItem('users'));
+                const currentDate = new Date().toISOString().split('T')[0];
+                
+                // Подсчет активных пользователей (вошли сегодня)
+                const activeUsers = users.filter(user => {
+                    return user.lastLogin && user.lastLogin.split('T')[0] === currentDate;
+                }).length;
+                
+                document.getElementById('total-users').textContent = users.length;
+                document.getElementById('active-users').textContent = activeUsers;
+                
+                // Заполняем список пользователей
+                const usersListContainer = document.getElementById('users-list-container');
+                usersListContainer.innerHTML = '';
+                
+                users.forEach(user => {
+                    const userItem = document.createElement('div');
+                    userItem.classList.add('user-item');
+                    
+                    const userCreated = new Date(user.createdAt).toLocaleDateString();
+                    const lastLogin = user.lastLogin ? new Date(user.lastLogin).toLocaleString() : 'Никогда';
+                    
+                    userItem.innerHTML = `
+                        <div>
+                            <strong>${user.username}</strong><br>
+                            <small>Зарегистрирован: ${userCreated}</small>
+                        </div>
+                        <div>
+                            <small>Последний вход: ${lastLogin}</small>
+                        </div>
+                        <div class="user-actions">
+                            <button data-username="${user.username}">Удалить</button>
+                        </div>
+                    `;
+                    
+                    usersListContainer.appendChild(userItem);
+                });
+                
+                // Обработчики для кнопок удаления
+                document.querySelectorAll('.user-actions button').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        const username = e.target.dataset.username;
+                        deleteUser(username);
+                    });
+                });
+            }
+            
+            // Удаление пользователя
+            function deleteUser(username) {
+                if (confirm(`Вы уверены, что хотите удалить пользователя ${username}?`)) {
+                    const users = JSON.parse(localStorage.getItem('users'));
+                    const updatedUsers = users.filter(user => user.username !== username);
+                    
+                    localStorage.setItem('users', JSON.stringify(updatedUsers));
+                    loadAdminData();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
